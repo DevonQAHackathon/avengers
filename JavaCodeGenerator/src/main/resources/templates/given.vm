@@ -1,0 +1,5 @@
+
+@Given("^$givenText$")  
+public void $methodName(String searchTerm) {
+
+}

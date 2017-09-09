@@ -1,0 +1,5 @@
+
+@And("^$andText$")  
+public void $methodName(String searchTerm) {
+
+}
