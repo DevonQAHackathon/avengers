@@ -26,6 +26,10 @@ app.get('/', function (req, res) {
 	res.send('KP Agent Server')
 })
 
+app.get('/sendImg/:filename', function(req, res){
+	res.sendFile('/home/suraj/Desktop/dev/testavenger/fbBot/img/'+req.params.filename)
+})
+
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === 'verify_me') {
 		res.send(req.query['hub.challenge'])
@@ -109,10 +113,6 @@ function eventHandle(sender, event){
 					        "content_type":"text",
 					        "title":"Java",
 					        "payload":"JAVA"
-					      },{
-					        "content_type":"text",
-					        "title":"Python",
-					        "payload":"PYTHON"
 					      }
 					    ]
 					}
@@ -185,9 +185,9 @@ function eventHandle(sender, event){
 		  							var resp = body
 		  							var a = JSON.parse(resp)
 
-		  							var msgData = {text: 'Your scenario category is ' + a.response}
+		  							var msgData = {"attachment":{"payload":{"template_type":"generic","elements":[{"buttons":[{"type":"web_url","webview_height_ratio":"tall","title":"View Feature File","url":"https://d7d859f5.ngrok.io"},{"type":"web_url","webview_height_ratio":"tall","title":"View Test Code","url":"https://d7d859f5.ngrok.io"}],"title": a.response,"image_url": "https://d7d859f5.ngrok.io/sendImg/"+a.response+'.png'}]},"type":"template"}}
 
-									sendMessage(sender, msgData, msgData.text, msgData.test, 'FEATURE', Date.now())
+									sendMessage(sender, msgData, 'scenario', a.response, 'FEATURE', Date.now())
 		  						})
 		  						/*var msgData = {text: 'Your scenario category is ' + text}
 
@@ -234,10 +234,6 @@ function eventHandle(sender, event){
 					        "content_type":"text",
 					        "title":"Java",
 					        "payload":"JAVA"
-					      },{
-					        "content_type":"text",
-					        "title":"Python",
-					        "payload":"PYTHON"
 					      }
 					    ]
 					}
