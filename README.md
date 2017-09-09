@@ -6,6 +6,8 @@ A team of bots to assist QA activities all the way from test plan creation to ex
 
 ## The (Q)Avengers initiative consists of...
 
+![QAvengers logo](docs/QAvengers-flow.png/?raw=true)
+
 1. **Captain America** -  Interact with user to obtain business requirements and generate high quality feature-specifications.
 2. **Iron Man** - Create tests from the high-quality feature specs.
 3. **The Hulk** - Submit generated tests to test-repo for review/maintenance.
