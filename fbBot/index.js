@@ -14,7 +14,7 @@ var ObjectId = require('mongodb').ObjectID
 
 var url = 'mongodb://localhost:27017/avenger'
 
-app.set('port', (process.env.PORT || 7007))
+app.set('port', (process.env.PORT || 5005))
 
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -124,7 +124,7 @@ function eventHandle(sender, event){
 					sendMessage(sender, msgData, 'Old New Project', 'Old Project Flow', 'OLD_PROJ', Date.now())
 				}else if(text == 'JAVA' || text == 'PYTHON'){
 					//create new project with selected language
-					var msgData = {text: 'Tell me about the feature :-)'}
+					var msgData = {text: 'Tell me about the scenario :-)'}
 
 					sendMessage(sender, msgData, 'Feature', 'Feature', 'NEW_PROJ_FEATURE', Date.now())
 				}
@@ -181,9 +181,17 @@ function eventHandle(sender, event){
 	  				var cursor = db.collection('fb_msg_log').find({ "fb_id": parseInt(sender) }).sort({"$natural": -1}).limit(1).toArray(function(err, res){
 						if(res.length != 0){
 							if(res[0].msg_cat == 'NEW_PROJ_FEATURE'){
-								var msgData = {text: 'Your feature is ' + text}
+								request("http://localhost:8000/nlp/"+text, function(error, response, body) {
+		  							var resp = body
+		  							var a = JSON.parse(resp)
 
-								sendMessage(sender, msgData, msgData.text, msgData.test, 'FEATURE', Date.now())
+		  							var msgData = {text: 'Your scenario category is ' + a.response}
+
+									sendMessage(sender, msgData, msgData.text, msgData.test, 'FEATURE', Date.now())
+		  						})
+		  						/*var msgData = {text: 'Your scenario category is ' + text}
+
+								sendMessage(sender, msgData, msgData.text, msgData.test, 'FEATURE', Date.now())*/
 							}else{
 								var msgData = {text: text}
 
@@ -219,7 +227,20 @@ function eventHandle(sender, event){
 					sendMessage(sender, msgData, 'Greeting', 'Intro message', 'GREETING', Date.now())
 
 				}else if(payload == 'NEW_PROJ'){
-					var msgData = {"text": "New project flow"}
+					var msgData = {
+						"text":"Which language you want the test code in?",
+					    "quick_replies":[
+					      {
+					        "content_type":"text",
+					        "title":"Java",
+					        "payload":"JAVA"
+					      },{
+					        "content_type":"text",
+					        "title":"Python",
+					        "payload":"PYTHON"
+					      }
+					    ]
+					}
 
 					sendMessage(sender, msgData, 'Start New Project', 'New Project Flow', 'NEW_PROJ', Date.now())
 										
@@ -274,6 +295,6 @@ function insertLog(sender, sent_msg, received_msg, msg_cat, time_stamp){
 	})
 }
 
-app.listen(7007, function () {
-  console.log('Test Avenger messenger app listening on port 3003!')
+app.listen(5005, function () {
+  console.log('Test Avenger messenger app listening on port 5005!')
 })

@@ -1,0 +1,2 @@
+{"model": "default", "time": "2017-09-08T13:48:33.539093", "user_input": {"entities": [], "intent": {"confidence": 1.0, "name": "None"}, "text": "I am in for bmshackit"}}
+{"model": "default", "time": "2017-09-08T13:48:46.030810", "user_input": {"entities": [], "intent": {"confidence": 1.0, "name": "None"}, "text": "i am in for bmshackit"}}

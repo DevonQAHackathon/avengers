@@ -1,0 +1,71 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "signing to my blog",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "sign in to my blog",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "login to my blog",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "log in to my blog",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "login",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "log in",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "signing",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "signing in",
+        "intent": "login",
+        "entities": []
+      },
+      {
+        "text": "add a blog post",
+        "intent": "new_post",
+        "entities": []
+      },
+      {
+        "text": "new post",
+        "intent": "new_post",
+        "entities": []
+      },
+      {
+        "text": "write a post",
+        "intent": "new_post",
+        "entities": []
+      },
+      {
+        "text": "publish",
+        "intent": "new_post",
+        "entities": []
+      },
+      {
+        "text": "submit new entry",
+        "intent": "new_post",
+        "entities": []
+      }
+    ]
+  }
+}

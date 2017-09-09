@@ -1,0 +1,5 @@
+{"model": "default", "time": "2017-09-09T17:57:14.721232", "user_input": {"entities": [], "intent": {"confidence": 1.0, "name": "None"}, "text": "login"}}
+{"model": "default", "time": "2017-09-09T17:57:27.412524", "user_input": {"entities": [], "intent": {"confidence": 1.0, "name": "None"}, "text": "log in"}}
+{"model": "default", "time": "2017-09-09T17:57:34.345133", "user_input": {"entities": [], "intent": {"confidence": 1.0, "name": "None"}, "text": "publish"}}
+{"model": "default", "time": "2017-09-09T17:57:42.115075", "user_input": {"entities": [], "intent": {"confidence": 1.0, "name": "None"}, "text": "add new"}}
+{"model": "default", "time": "2017-09-09T17:57:48.384586", "user_input": {"entities": [], "intent": {"confidence": 1.0, "name": "None"}, "text": "add login"}}
