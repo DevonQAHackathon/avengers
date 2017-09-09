@@ -7,14 +7,14 @@ const cors = require('cors')
 
 const app = express()
 
-const token = ""
+const token = "EAAHGqJDZATz4BAMAVobyB7WBY3rCPvVZBzBPLZCrGazmpvkgZB3re57eZAkO3n33EwLgGJ5ZAANoKzuQ4ZCHFklw1mNNXwMY2zteIvpZBZBFVY2IQs9YScQUdCGqa44K63IiyLv3C6LkknAHoszkI7Uq7sVJpJFn6xKa2JDGeQs05IwZDZD"
 
 var MongoClient = require('mongodb').MongoClient
 var ObjectId = require('mongodb').ObjectID
 
-var url = ''
+var url = 'mongodb://localhost:27017/avenger'
 
-app.set('port', (process.env.PORT || 3003))
+app.set('port', (process.env.PORT || 7007))
 
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -35,6 +35,8 @@ app.get('/webhook/', function (req, res) {
 
 app.post('/webhook/', function (req, res) {
 	var messaging_events = req.body.entry[0].messaging
+
+	console.log('EVENT : ' + messaging_events)
 	
 	for (var i = 0; i < messaging_events.length; i++) {
 		var event = req.body.entry[0].messaging[i]
@@ -62,7 +64,7 @@ function authUser(sender, event){
 
                console.log('DATA LOG : ' + JSON.stringify(data))
                if(data.error){
-                  sendTextMessage(sender, 'Error authenticating', 'error')
+                    sendMessage(sender, {text: 'Error authenticating'}, 'error', 'error', 'ERROR', Date.now())
                }else{
                   var cursor = db.collection('fb_user_profile').insertOne({
                      "first_name": data.first_name,
@@ -74,14 +76,11 @@ function authUser(sender, event){
                      "username": "",
                      "email": "",
                      "mobile": "",
-                     "interests": [],
-                     "last_loc": "",
-                     "city": "",
                      "fb_id": parseInt(sender),
                      "time_stamp": Date.now()
                   }, function(err){
                      if(err){
-                       sendTextMessage(sender, 'Error authenticating', 'error')
+                       sendMessage(sender, {text: 'Error authenticating'}, 'error', 'error', 'ERROR', Date.now())
                     }else{
                        eventHandle(sender, event)
                     }
@@ -97,19 +96,138 @@ function authUser(sender, event){
 function eventHandle(sender, event){
 	MongoClient.connect(url, function(err, db) {
 	  	var cursor = db.collection('fb_user_profile').find({ "fb_id": parseInt(sender) }).toArray(function(err, res){
-	  		//console.log(event.message)
+	  		console.log(event.message)
 			if (event.message && event.message.quick_reply){
-				
+
+				var text = event.message.quick_reply.payload
+
+				if(text == 'NEW_PROJ'){
+					var msgData = {
+						"text":"Which language you want the test code in?",
+					    "quick_replies":[
+					      {
+					        "content_type":"text",
+					        "title":"Java",
+					        "payload":"JAVA"
+					      },{
+					        "content_type":"text",
+					        "title":"Python",
+					        "payload":"PYTHON"
+					      }
+					    ]
+					}
+
+					sendMessage(sender, msgData, 'Start New Project', 'New Project Flow', 'NEW_PROJ', Date.now())
+				}else if(text == 'OLD_PROJ'){
+					var msgData = {"text": "Old project flow"}
+
+					sendMessage(sender, msgData, 'Old New Project', 'Old Project Flow', 'OLD_PROJ', Date.now())
+				}else if(text == 'JAVA' || text == 'PYTHON'){
+					//create new project with selected language
+					var msgData = {text: 'Tell me about the feature :-)'}
+
+					sendMessage(sender, msgData, 'Feature', 'Feature', 'NEW_PROJ_FEATURE', Date.now())
+				}
 
 			}else if(event.message && event.message.attachments){
 
 				
 
 			}else if (event.message && event.message.text && event.message.nlp) {
-				
+
+				console.log('INSIDE EVENT MESSAGE')
+
+				var text = event.message.text
+
+				var entity = event.message.nlp.entities
+
+				if(entity.greetings && entity.greetings[0].confidence > 0.7){
+
+					var msgData = {
+						"text":"Hey "+res[0].first_name+"!! Whats the plan today :-)",
+					    "quick_replies":[
+					      {
+					        "content_type":"text",
+					        "title":"Start New Project",
+					        "payload":"NEW_PROJ"
+					      },{
+					        "content_type":"text",
+					        "title":"Check Old Project",
+					        "payload":"OLD_PROJ"
+					      }
+					    ]
+					}
+
+					sendMessage(sender, msgData, 'Greeting', 'Intro message', 'GREETING', Date.now())
+
+				}else if(entity.thanks && entity.thanks[0].confidence > 0.7)	{
+					var msgData = { text: 'You are welcome :-)'}
+					var sent_msg = text
+					var received_msg = msgData.text
+					var msg_cat = 'THANKS'
+					var time_stamp = Date.now()
+
+					sendMessage(sender, msgData, sent_msg, received_msg, msg_cat, time_stamp)
+				}else if(entity.bye && entity.bye[0].confidence > 0.7)	{
+					var msgData = { text: 'See you soon ' + res[0].first_name + ' :-)'}
+					var sent_msg = text
+					var received_msg = msgData.text
+					var msg_cat = 'BYE'
+					var time_stamp = Date.now()
+
+					sendMessage(sender, msgData, sent_msg, received_msg, msg_cat, time_stamp)
+				}else{
+	  				
+	  				var cursor = db.collection('fb_msg_log').find({ "fb_id": parseInt(sender) }).sort({"$natural": -1}).limit(1).toArray(function(err, res){
+						if(res.length != 0){
+							if(res[0].msg_cat == 'NEW_PROJ_FEATURE'){
+								var msgData = {text: 'Your feature is ' + text}
+
+								sendMessage(sender, msgData, msgData.text, msgData.test, 'FEATURE', Date.now())
+							}else{
+								var msgData = {text: text}
+
+								sendMessage(sender, msgData, msgData.text, msgData.test, 'ECHO', Date.now())
+							}
+						}else{
+							var msgData = {text: text}
+
+							sendMessage(sender, msgData, msgData.text, msgData.test, 'ECHO', Date.now())
+						}
+					})
+				}
 
 			}else if (event.postback) {
-				
+				var payload = event.postback.payload
+
+				if(payload == 'HELP'){
+					var msgData = {
+						"text":"Hey "+res[0].first_name+"!! I'll be your testing partner :-)",
+					    "quick_replies":[
+					      {
+					        "content_type":"text",
+					        "title":"Start New Project",
+					        "payload":"NEW_PROJ"
+					      },{
+					        "content_type":"text",
+					        "title":"Check Old Project",
+					        "payload":"OLD_PROJ"
+					      }
+					    ]
+					}
+
+					sendMessage(sender, msgData, 'Greeting', 'Intro message', 'GREETING', Date.now())
+
+				}else if(payload == 'NEW_PROJ'){
+					var msgData = {"text": "New project flow"}
+
+					sendMessage(sender, msgData, 'Start New Project', 'New Project Flow', 'NEW_PROJ', Date.now())
+										
+				}else if(payload == 'OLD_PROJ'){
+					var msgData = {"text": "Old project flow"}
+
+					sendMessage(sender, msgData, 'Old New Project', 'Old Project Flow', 'OLD_PROJ', Date.now())
+				}
 
 			}
 		})
@@ -156,6 +274,6 @@ function insertLog(sender, sent_msg, received_msg, msg_cat, time_stamp){
 	})
 }
 
-app.listen(3003, function () {
+app.listen(7007, function () {
   console.log('Test Avenger messenger app listening on port 3003!')
 })
