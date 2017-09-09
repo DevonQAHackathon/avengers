@@ -19,6 +19,9 @@ public class CodeGenerator {
 	@Autowired
 	private Generator generator;
 	
+	@Autowired
+	private ReadFeatures readFeatures;
+	
 	/**
 	 * Ping service which tells service is up or not
 	 * @return hello world
@@ -37,6 +40,21 @@ public class CodeGenerator {
 	public String generateCode(@RequestParam("file") String path){
 		try {
 			return generator.generator(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	/**
+	 * Show the features for the given file
+	 * @param path
+	 * @return generated java code
+	 */
+	@RequestMapping(value="/readFeature", method= RequestMethod.GET)
+	public String readFeature(@RequestParam("file") String path){
+		try {
+			return readFeatures.readFeature(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
