@@ -1,6 +1,6 @@
 # (Q)Avengers
 
-![QAvengers logo](docs/resourcesQAvengers.png/?raw=true)
+![QAvengers logo](docs/resources/QAvengers.png/?raw=true)
 
 A team of bots/modules to assist QA activities all the way from test plan creation to execution and reporting.
 
