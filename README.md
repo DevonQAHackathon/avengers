@@ -1,13 +1,14 @@
-Sample feature file :
+#(Q)Avengers
 
-Feature: Blog
-    A site where you can publish your articles.
+A team of bots to assist QA activities all the way from test plan creation to execution and reporting.
 
-Scenario: Publishing the article
-    Given I'm an author user
-    And I have an article
-    When I go to the article page
-    And I press the publish button
-    Then I should not see the error message
-    And the article should be published  # Note: will query the database
+##The (Q)Avengers initiative consists of...
+
+1. **Captain America** -  Interact with user to obtain business requirements and generate high quality feature-specifications.
+2. **Iron Man** - Create tests from the high-quality feature specs.
+3. **The Hulk** - Submit generated tests to test-repo for review/maintenance.
+4. **Thor** - Executing the tests in the test-repo and storing the results.
+5. **Black widow** - Test Report generation based on the results of a test-run.
+
+For more details check the "docs" directory.
 
