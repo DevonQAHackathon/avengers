@@ -36,7 +36,7 @@ public class CodeGenerator {
 	 * @param path
 	 * @return generated java code
 	 */
-	@RequestMapping(value="/generateCode", method= RequestMethod.GET)
+	@RequestMapping(value="/generateCode", produces="text/plain", method= RequestMethod.GET)
 	public String generateCode(@RequestParam("file") String path){
 		try {
 			return generator.generator(path);
@@ -51,7 +51,7 @@ public class CodeGenerator {
 	 * @param path
 	 * @return generated java code
 	 */
-	@RequestMapping(value="/readFeature", method= RequestMethod.GET)
+	@RequestMapping(value="/readFeature", produces="text/plain" ,method= RequestMethod.GET)
 	public String readFeature(@RequestParam("file") String path){
 		try {
 			return readFeatures.readFeature(path);
