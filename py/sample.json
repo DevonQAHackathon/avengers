@@ -1,0 +1,35 @@
+{
+  'feature': [
+    'Blog',
+    'A site where you can publish your articles.'
+  ],
+  'scenario': {
+    'cond': [
+      {
+        'value': "I'm an author user",
+        'key': 'Given'
+      },
+      {
+        'value': 'I have an article',
+        'key': 'Given'
+      },
+      {
+        'value': 'I go to the article page',
+        'key': 'When'
+      },
+      {
+        'value': 'I press the publish button',
+        'key': 'When'
+      },
+      {
+        'value': 'I should not see the error message',
+        'key': 'Then'
+      },
+      {
+        'value': 'the article should be published  # Note: will query the database',
+        'key': 'Then'
+      }
+    ],
+    'name': 'Publishing the article'
+  }
+}
