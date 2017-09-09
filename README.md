@@ -1,4 +1,4 @@
-#(Q)Avengers#
+# (Q)Avengers
 
 ![QAvengers logo](docs/QAvengers.png/?raw=true)
 
