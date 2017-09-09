@@ -16,13 +16,16 @@ A team of bots/modules to assist QA activities all the way from test plan creati
 
 # Goals of (Q)Avengers
 
-1. Extensiblility - The impelmentation should be capable on handling a large number of parallel users.
+1. **Simplify** QA activities by eliminating redundant manual steps all the way from the beginning of reviewing business requirements, generating testplans, executing the tests, gathering results and providing insightful metrics on the state of the system.
+
+2. **Extensiblility** - The impelmentation should be capable on handling a large number of parallel users.
   * This is achieved by instantiating multiple independent instances of any module when needed as they are modular in design.
   * Depending on the available infrastructure, it is also possible to enhance any module by external inputs / trained model that can be offloaded to a common high-perfomance hw-accelrated instance. 
 
-2. Re-Usable - Modules operate on public-domain, industry-standard formats and conventions. This enables one to use any of the individual modules in isolation or integrate them with any existing frameworks/tools using standard formats/conventions.
+3. **Re-Usable** - Modules operate on public-domain, industry-standard formats and conventions. This enables one to use any of the individual modules in isolation or integrate them with any existing frameworks/tools using standard formats/conventions.
 
-3. Plug-n-Play - Each module requires minimal configuration/customisation before being deployed. NOTE: User may need to add/modify the business-specific domain-specific information / templates. This is a one-time activity when beginning the any new domains.
+4. **Plug-n-Play** - Each module requires minimal configuration/customisation before being deployed. NOTE: User may need to add/modify the business-specific domain-specific information / templates. This is a one-time activity when beginning the any new domains.
+
 
 For more details check the **`docs`** directory.
 
