@@ -22,6 +22,6 @@ public class ReadFeatures {
 	 * @throws IOException 
 	 */
 	public String readFeature(String path) throws IOException{
-		return Files.lines(Paths.get(path)).collect(Collectors.joining());
+		return Files.lines(Paths.get(path)).collect(Collectors.joining("\n"));
 	}
 }
