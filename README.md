@@ -14,7 +14,21 @@ A team of bots/modules to assist QA activities all the way from test plan creati
 4. [TODO] **Thor** - Executing the tests in the test-repo and storing the results.
 5. [TODO] **Black widow** - Test Report generation based on the results of a test-run.
 
-The typical flow beginning from the **Captain America** bot/module is described <a href="https://github.com/DevonQAHackathon/avengers/blob/master/docs/ChatFlow.md" target="_blank">**here**</a>.
+# Goals of (Q)Avengers
+
+1. Extensiblility - The impelmentation should be capable on handling a large number of parallel users.
+  * This is achieved by instantiating multiple independent instances of any module when needed as they are modular in design.
+  * Depending on the available infrastructure, it is also possible to enhance any module by external inputs / trained model that can be offloaded to a common high-perfomance hw-accelrated instance. 
+
+2. Re-Usable - Modules operate on public-domain, industry-standard formats and conventions. This enables one to use any of the individual modules in isolation or integrate them with any existing frameworks/tools using standard formats/conventions.
+
+3. Plug-n-Play - Each module requires minimal configuration/customisation before being deployed. NOTE: User may need to add/modify the business-specific domain-specific information / templates. This is a one-time activity when beginning the any new domains.
 
 For more details check the **`docs`** directory.
 
+# Usage
+The typical flow beginning from the **Captain America** bot/module is described <a href="https://github.com/DevonQAHackathon/avengers/blob/master/docs/ChatFlow.md" target="_blank">**here**</a>.
+
+![QAvengers logo](docs/resources/screen1.png/?raw=true "Screenshot of MVP")
+
+![QAvengers logo](docs/resources/screen2.png/?raw=true "Screenshot of MVP")
