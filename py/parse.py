@@ -15,7 +15,7 @@ res = {"feature": feature, "scenario": { "name": scenario, "cond": []}}
 last = ''
 
 for i in range(3, len(data)):
-	cond = {'key': '', 'value': ''}
+	cond = {"key": "", "value": ""}
 
 	d1 = data[i].split('\n')[0]
 	key = d1.split(' ',1)[0]
