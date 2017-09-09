@@ -185,7 +185,7 @@ function eventHandle(sender, event){
 		  							var resp = body
 		  							var a = JSON.parse(resp)
 
-		  							var msgData = {"attachment":{"payload":{"template_type":"generic","elements":[{"buttons":[{"type":"web_url","webview_height_ratio":"tall","title":"View Feature File","url":"https://d7d859f5.ngrok.io"},{"type":"web_url","webview_height_ratio":"tall","title":"View Test Code","url":"https://d7d859f5.ngrok.io"}],"title": a.response,"image_url": "https://d7d859f5.ngrok.io/sendImg/"+a.response+'.png'}]},"type":"template"}}
+		  							var msgData = {"attachment":{"payload":{"template_type":"generic","elements":[{"buttons":[{"type":"web_url","webview_height_ratio":"tall","title":"View Feature File","url":"https://4faf46d8.ngrok.io/readFeature?file=D%3A%5Chackathon%5Cavengers%5Cpy%5Cscenarios%5Cblog%5C"+a.response+".feature"},{"type":"web_url","webview_height_ratio":"tall","title":"View Test Code","url":"https://4faf46d8.ngrok.io/generateCode?file=D%3A%5Chackathon%5Cavengers%5Cpy%5Cscenarios%5Cblog%5C"+a.response+".feature"}],"title": a.response,"image_url": "https://www.theblogstarter.com/wp-content/uploads/2014/02/4.jpg"}]},"type":"template"}}
 
 									sendMessage(sender, msgData, 'scenario', a.response, 'FEATURE', Date.now())
 		  						})
